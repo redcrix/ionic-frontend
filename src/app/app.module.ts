@@ -19,6 +19,10 @@ import {
   import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 
+import { NativeGeocoder,NativeGeocoderOptions} from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+
 
 let config = new AuthServiceConfig([
   {
@@ -55,6 +59,8 @@ export function provideConfig() {
     HttpModule],
   providers: [
     InAppBrowser,
+    NativeGeocoder,
+    Geolocation,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
