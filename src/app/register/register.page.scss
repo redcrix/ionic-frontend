@@ -1,0 +1,70 @@
+input.native-input.sc-ion-input-ios {
+    border-bottom: 1px solid lightgray;
+}
+
+.icon {
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(0,106,255,1) 100%);
+    padding: 10px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+p.About {
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(0,106,255,1) 100%);
+    margin-bottom: 1px;
+    padding: 11px;
+    color: white;
+    font-family: Gotham;
+    font-weight: bold;
+}
+
+.StepOne {
+    display: grid;
+    background: aliceblue;
+    padding: 20px;
+
+}
+
+p.sub_text {
+    font-size: 10px;
+    color: gray;
+    font-family: Gotham;
+}
+
+.foot.ng-star-inserted {
+    margin-top: 40px;
+    text-align: center;
+}
+
+ion-row.Count_row_ID.md.hydrated {
+    background: lightgray;
+    padding: 22px;
+    border-radius: 7px;
+}
+
+textarea#Message {
+    min-width: 100%;
+    min-height: 10%;
+}
+
+button.picker-button.ion-activatable.sc-ion-picker-md {
+    color: #006aff !important;
+}
+
+button.picker-opt.picker-opt-selected {
+    color: #006aff !important;
+}
+
+button.alert-button.ion-focusable.ion-activatable.sc-ion-alert-md {
+    color: #006aff !important;
+}
+
+.alert-radio-icon.sc-ion-alert-md {
+    color: #006aff !important;
+}
+
+.alert-radio-inner.sc-ion-alert-md {
+    color: #006aff !important;
+}
+
+

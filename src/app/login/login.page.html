@@ -1,0 +1,50 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+
+    <ion-row class="login-intro">
+        <ion-col  >
+       
+          <img src="../../assets/start.png" alt="start_application" class="start-png">
+        </ion-col>
+
+    </ion-row>
+
+
+    <div class="inputBox">
+        <form [formGroup]="loginForm" >
+      <div class="input-sign">
+          <ion-input class="login-input" formControlName="email"  type="text" placeholder="Email"></ion-input>
+        </div>
+
+        <div class="input-sign">
+            <ion-input class="login-input" formControlName="pass"  type="text" placeholder="Password"></ion-input>
+          </div>
+
+        </form>
+    </div>
+
+    <ion-button expand="full"   [disabled]="!loginForm.valid"  class="login-btn" (click)="Login()"><ion-icon name="done-all"></ion-icon> LOGIN</ion-button >
+  
+
+
+    <ion-row class="customRowDesign">
+        <ion-col (click)="start()" >
+            <p class="sub_title">
+             Start with your application.
+              </p>
+          <img src="../../assets/start.png" alt="start_application" class="start-png">
+        </ion-col>
+
+    </ion-row>
+
+
+   
+<button (click)="doFbLogin()">fb</button>
+
+
+</ion-content>

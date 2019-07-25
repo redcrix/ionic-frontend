@@ -1,0 +1,295 @@
+<ion-header>
+  <ion-toolbar class="BackGround">
+
+    <ion-buttons slot="start" (click)="Back()">
+      <ion-icon name="arrow-round-back"></ion-icon>
+    </ion-buttons>
+
+
+    <ion-title >
+      Logo
+    </ion-title>
+
+
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="register-box" *ngIf="kyc_form_show">
+    <div class="icon">
+      KYC FORM
+      {{ user.name }}
+    </div>
+
+  <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button> --> 
+      <mat-horizontal-stepper  #stepper>
+
+
+       
+        <mat-step [stepControl]="registerForm">
+            <form [formGroup]="registerForm" >
+   
+                <ng-template matStepLabel>Fill out your name</ng-template>
+                  
+                <div class="StepOne" >
+					<!-- <mat-form-field>
+                      <input  hidden matInput name="User ID" formControlName="userid" class="redcart-input" type="text"
+                      placeholder="User ID " >
+                    </mat-form-field> -->
+                   
+                <!-- <input hidden matInput name="First Name" formControlName="userid" class="redcart-input" type="text"
+                       [value]="user.id" >
+              <input hidden matInput name="authToken" formControlName="authToken" class="redcart-input" type="text"
+                       [value]="user.authToken" >
+                       <input hidden  matInput name="provider" formControlName="provider" class="redcart-input" type="text"
+                       [value]="user.provider" > -->
+  
+                   <mat-form-field>
+                      <input matInput name="First Name" formControlName="firstname" class="redcart-input" type="text"
+                      placeholder="First/Family Name *" [value]="user.firstName" >
+
+                    </mat-form-field>
+  
+                      <mat-form-field>
+                          <input matInput name="middle name" formControlName="middlename" class="redcart-input" type="text"
+                          placeholder="Middle Name" >
+
+                          <p class="sub_text">Only required if it is part of your Legal Name on your photo ID</p>
+                 
+                        </mat-form-field>
+                  
+                      <mat-form-field>
+                          <input matInput name="Last/Family Name" formControlName="lastname" class="redcart-input" type="text"
+                          placeholder="Last/Family Name" [value]="user.lastName">
+
+                          <p class="sub_text">Legal Name that is on your photo ID</p>
+                 
+                        </mat-form-field>
+                 
+                        <div class="item_inner">
+                          <ion-datetime class="redcart-input" formControlName="dob" displayFormat="MM DD YY"
+                          placeholder="Date of Birth" [value]="user.lastName"></ion-datetime> 
+
+                          <p class="sub_text">This will be verified with what is on your photo ID</p>
+                        </div>
+               
+
+                          <ion-item>
+         
+                              <ion-select  okText="Select" cancelText="Dismiss" formControlName="nationality" placeholder="Nationality">
+                                <ion-select-option value="1">United States of America</ion-select-option>
+                                <ion-select-option value="2">Canada</ion-select-option>
+                                <ion-select-option value="3">Mexico</ion-select-option>
+                                <ion-select-option value="4">Belgium</ion-select-option>
+                                <ion-select-option value="5">France</ion-select-option>
+                                <ion-select-option value="6">Spain</ion-select-option>
+                                <ion-select-option value="7">India</ion-select-option>
+                                <ion-select-option value="8">China</ion-select-option>
+                                <ion-select-option value="9">Japan</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+
+
+                        <!-- <mat-form-field> -->
+
+              
+                          <!-- </mat-form-field> -->
+              
+              
+                          <!-- <ion-item>
+  <ion-label>Id Type</ion-label>
+  <ion-select [(ngModel)]="idtype">
+    <ion-option value="stateid">State Id</ion-option>
+    <ion-option value="drivinglicence">Driving Licence</ion-option>
+    <ion-option value="militrayid">Military id</ion-option>
+    <ion-option value="passport">Passport</ion-option>
+    <ion-option value="nationalcard">National Card</ion-option>
+  </ion-select>
+</ion-item>   -->
+              
+              
+                        <!-- <mat-form-field>
+                            <input matInput name="email" formControlName="email" class="redcart-input" type="text" placeholder=" Email"  >
+                          </mat-form-field> -->
+                
+                      <!-- <mat-form-field>
+                          <input matInput name="password" formControlName="password" class="redcart-input" type="password"
+                          placeholder="Choose Password for Login" >
+                        </mat-form-field>
+                        -->
+        
+              
+        
+                        
+        
+                </div>
+
+
+      
+   
+           
+
+            </form>
+
+            <div class="TextAreaMain">
+
+                <textarea #myInput id="Message" rows="1" maxLength="500" placeholder="Complete Address Here" (keyup)="resize()" [(ngModel)]="Addresso"></textarea>
+<p class="sub_text_add">
+                Address 1, 
+                  Address 2, 
+                  City/Town, 
+                  State/Region, 
+                  Zip/Postal Code, 
+                  Country</p>
+                </div>
+
+
+                <div class="stepperFooter">
+                    <button class="steeprBtn" mat-button matStepperNext>Next</button>
+                  </div>
+
+
+        
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+
+  
+
+
+   
+            <ng-template matStepLabel>Personal Identification Details</ng-template>
+            <form [formGroup]="secondFormGroup">
+ 
+
+
+
+            <ion-item>
+                <ion-select  okText="Select" cancelText="Dismiss" formControlName="idtype" placeholder="Select Id type">
+                  <ion-select-option value="1">State ID</ion-select-option>
+                  <ion-select-option value="2">Driver's License</ion-select-option>
+                  <ion-select-option value="3">Military ID</ion-select-option>
+                  <ion-select-option value="4">Passport</ion-select-option>
+                  <ion-select-option value="5">National Card</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+
+              <!-- ID upload here -->
+              <h3 class="upload">ID Upload</h3>
+        
+              <ion-row  class="Count_row_ID" >
+                  <ion-col class="id_up-col"  >
+                    <p class="timer_text">Front ID</p>
+                    <img src="../../assets/photo_upload.png" class="photo">
+                    <ion-button class="IdUpload-btn">Upload</ion-button>
+                  </ion-col>
+  
+                  <ion-col  class="id_up-col" >
+                      <p class="timer_text">Back ID</p>
+                      <img src="../../assets/photo_upload.png" class="photo">
+                      <ion-button  class="IdUpload-btn">Upload</ion-button>
+                    </ion-col>
+
+                    <ion-col  class="id_up-col" >
+                        <p class="timer_text">Selfie with Photo ID</p>
+                        <img src="../../assets/photo_upload.png" class="photo">
+                        <ion-button  class="IdUpload-btn">Upload</ion-button>
+                      </ion-col>
+                </ion-row>
+
+
+                <h3 class="upload">Address Validation</h3>
+        
+                <ion-row  class="Count_row_address" >
+                    <ion-col class="add_up-col"  >
+                      <p class="timer_text">Bank Statement</p>
+                      <img src="../../assets/photo_upload.png" class="photo">
+                      <ion-button class="IdUpload-btn">Upload</ion-button>
+                    </ion-col>
+    
+                    <ion-col  class="add_up-col" >
+                        <p class="timer_text">Utility/Medical Bill</p>
+                        <img src="../../assets/photo_upload.png" class="photo">
+                        <ion-button  class="IdUpload-btn">Upload</ion-button>
+                      </ion-col>
+  
+                      <!-- <ion-col  class="id_up-col" >
+                          <p class="timer_text">Selfie with Photo ID</p>
+                          <img src="../../assets/photo_upload.png" class="photo">
+                          <ion-button  class="IdUpload-btn">Upload</ion-button>
+                        </ion-col> -->
+                  </ion-row>
+
+                
+
+
+
+
+          
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+      </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>
+            Verify
+         </ng-template>
+         <h3 class="verified_by__">I have submitted only information that is my own and it is all able to be verified.</h3>  
+        
+
+          <p class="orem">
+              Erant intellegat at usu, ius an natum doctus. Everti liberavisse at nam. Ex qui altera nusquam petentium, debet equidem conclusionemque te has, eum ei etiam detraxit facilisis. Ea quidam persecuti pro. Per at elitr lobortis, odio explicari ea sit, te sed aliquid meliore. Oportere prodesset voluptatibus an qui, tibique perfecto euripidis eam ex, wisi ridens nostro ex nec.
+          </p>
+
+          <div class="btn-submit__Area">
+              <ion-button class="kyc_accept-btn" [disabled]="!registerForm.valid" (click)="RegisterFun()">I agree</ion-button>
+              <ion-button class="kyc_dontaccept-btn"  (click)="dont()">I don't accept</ion-button>
+        
+           </div>
+
+
+          <div class="foot">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+
+       
+
+
+        </mat-step>
+
+    
+      </mat-horizontal-stepper> 
+
+
+
+
+
+
+
+
+
+
+      
+        <p class="incorrect" *ngIf="unMatchedCredentials">User Already Registered. User Recover Password Option.</p>
+        <p class="incorrect" *ngIf="showErro">Enter Correct Value.</p>
+
+
+
+
+  </div>
+
+
+  <!-- === Confirm Box -->
+
+
+  
+</ion-content>
