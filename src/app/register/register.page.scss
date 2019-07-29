@@ -3,7 +3,6 @@ input.native-input.sc-ion-input-ios {
 }
 
 .icon {
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(0,106,255,1) 100%);
     padding: 10px;
     color: white;
     margin-bottom: 30px;
@@ -20,7 +19,6 @@ p.About {
 
 .StepOne {
     display: grid;
-    background: aliceblue;
     padding: 20px;
 
 }
@@ -66,5 +64,7 @@ button.alert-button.ion-focusable.ion-activatable.sc-ion-alert-md {
 .alert-radio-inner.sc-ion-alert-md {
     color: #006aff !important;
 }
-
+ion-content.md.hydrated {
+    --background: slategray;
+}
 

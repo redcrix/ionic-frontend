@@ -4,10 +4,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
+import {MatMenuModule,MatButtonModule} from '@angular/material';
+import { ParticlesModule } from 'angular-particle';
+
 
 @NgModule({
   imports: [
     IonicModule,
+    MatMenuModule,
+    ParticlesModule,
+    MatButtonModule,
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])

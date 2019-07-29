@@ -12,11 +12,18 @@ import { SocialUser } from "angular4-social-login";
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform } from '@ionic/angular';
+
+import { Crop } from '@ionic-native/crop/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+
+
 declare var google;
 
 // import { google } from 'google-maps';
 
-// declare var google;
+declare var google
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -50,6 +57,9 @@ export class RegisterPage implements OnInit {
   secondFormGroup: FormGroup;
   kyc_form_show = true;
   confirm_box = false;
+  fileUrl: any = null;
+  respData: any;
+
 
   constructor(public zone: NgZone, 
    private platform: Platform,
@@ -62,10 +72,13 @@ export class RegisterPage implements OnInit {
     private router: Router,
     public toastController: ToastController,
     public alertController: AlertController,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private imagePicker: ImagePicker,
+  private crop: Crop,
+  private transfer: FileTransfer) {
 
 
-      this.initializeApp();
+      // this.initializeApp();
 
 
     if (localStorage.getItem('LoggedInUser_data') != null) {
@@ -73,19 +86,17 @@ export class RegisterPage implements OnInit {
     } if (localStorage.getItem('LoggedInUser_data') === null) {
       console.log('done');
     }
-    this.authService.authState.subscribe((user) => {
+   
 
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
-
+    this.user = JSON.parse(localStorage.getItem('UserFb'));
+console.log(this.user);
     this.registerForm = this.formBuilder.group({
-      'userid': [this.user.id],
-      'accesToken': [this.user.authToken],
-      'provider': [this.user.provider],
-      'firstname': [this.user.firstName, Validators.required],
+      'userid': [JSON.parse(localStorage.getItem('UserFb')).id],
+      'accesToken': [JSON.parse(localStorage.getItem('UserFb')).authToken],
+      'provider': [JSON.parse(localStorage.getItem('UserFb')).provider],
+      'firstname': [JSON.parse(localStorage.getItem('UserFb')).firstName, Validators.required],
       'middlename': [null, Validators],
-      'lastname': [this.user.lastName, Validators.required],
+      'lastname': [JSON.parse(localStorage.getItem('UserFb')).lastName, Validators.required],
       'dob': [Validators.required],
       //  'address' : [this.Addresso, Validators.required],
       'nationality': [null, Validators.required],
@@ -106,17 +117,18 @@ export class RegisterPage implements OnInit {
   //  front-back ID no with Issue, Expiry With OCR
 
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.geoCoder();
-    });
-  }
+  // initializeApp() {
+    // this.platform.ready().then(() => {
+    //   this.geoCoder();
+    // });
+  // }
 
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
 
       this.user = user;
+
       this.loggedIn = (user != null);
     });
 
@@ -233,6 +245,8 @@ export class RegisterPage implements OnInit {
 
   geoCoder() {
 
+    console.log('$$$$$$$$$$$$$$$$$$$$$');
+
     this.geolocation.getCurrentPosition().then((resp) => {
 
     }).catch((error) => {
@@ -243,6 +257,7 @@ export class RegisterPage implements OnInit {
     watch.subscribe((data) => {
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
+      alert(data);
       console.log(data.coords.latitude);
       console.log(data.coords.longitude);
     });
@@ -250,27 +265,27 @@ export class RegisterPage implements OnInit {
 
     // Option 1
 
-       let geocoder = new google.maps.Geocoder;
-    let latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)};
-    geocoder.geocode({'location': latlng}, (results, status) => {
-       console.log(results); // read data from here
-       console.log(status);
-    });
+    //    let geocoder = new google.maps.Geocoder;
+    // let latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)};
+    // geocoder.geocode({'location': latlng}, (results, status) => {
+    //    console.log(results); // read data from here
+    //    console.log(status);
+    // });
 
     // Option 2
 
-    // let options: NativeGeocoderOptions = {
-    //   useLocale: true,
-    //   maxResults: 5
-    // };
+    let options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5
+    };
 
-    // this.nativeGeocoder.reverseGeocode(this.lat, this.lng, options)
-    //   .then((result: NativeGeocoderResult[]) => console.log(JSON.stringify(result[0])))
-    //   .catch((error: any) => console.log(error));
+    this.nativeGeocoder.reverseGeocode(this.lat, this.lng, options)
+      .then((result: NativeGeocoderResult[]) => alert(JSON.stringify(result[0])))
+      .catch((error: any) => alert(error));
 
-    // this.nativeGeocoder.forwardGeocode('Berlin', options)
-    //   .then((result: NativeGeocoderResult[]) => console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude))
-    //   .catch((error: any) => console.log(error));
+    this.nativeGeocoder.forwardGeocode('Berlin', options)
+      .then((result: NativeGeocoderResult[]) => alert('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude))
+      .catch((error: any) => alert(error));
 
 
   }
@@ -286,7 +301,7 @@ export class RegisterPage implements OnInit {
         };
         this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude, options)
           .then((result: any) => {
-            console.log(result)
+            alert(result)
             this.userLocation = result[0]
             console.log(this.userLocation)
           })
@@ -312,7 +327,7 @@ export class RegisterPage implements OnInit {
         };
         this.nativeGeocoder.reverseGeocode(data.coords.latitude, data.coords.longitude, options)
           .then((result: NativeGeocoderResult[]) => {
-            console.log(result)
+            alert(result)
             this.userLocation = result[0]
             console.log(this.userLocation)
           })
@@ -352,7 +367,7 @@ export class RegisterPage implements OnInit {
       };
       this.nativeGeocoder.reverseGeocode(lat, lng, options)
         .then((result: NativeGeocoderResult[]) => this.userLocationFromLatLng = result[0])
-        .catch((error: any) => console.log(error));
+        .catch((error: any) => alert(error));
     } else {
       this.getGeoLocation(lat, lng, 'reverseGeocode');
     }
@@ -384,8 +399,53 @@ export class RegisterPage implements OnInit {
         }
       });
     }
+
+
+
+
+
+    
   }
 
+
+
+  cropUpload() {
+    this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 0 }).then((results) => {
+      for (let i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);
+          alert(results[i]);
+          this.crop.crop(results[i], { quality: 100 })
+            .then(
+              newImage => {
+                console.log('new image path is: ' + newImage);
+                const fileTransfer: FileTransferObject = this.transfer.create();
+                const uploadOpts: FileUploadOptions = {
+                   fileKey: 'file',
+                   fileName: newImage.substr(newImage.lastIndexOf('/') + 1)
+                };
+
+                console.log('IN BACKEND=='+FileTransfer);
+                alert('2 ==== '+FileTransfer);
+  
+                fileTransfer.upload(newImage, 'http://192.168.0.7:3000/api/upload', uploadOpts)
+                 .then((data) => {
+                  alert('3 ==== '+data);
+                   console.log(data);
+                   this.respData = JSON.parse(data.response);
+                   console.log(this.respData);
+                   alert('4 ==== '+this.respData);
+                   this.fileUrl = this.respData.fileUrl;
+                 }, (err) => {
+                  alert('err ==== '+err);
+                   this.respData
+                   console.log(err);
+                 });
+              },
+              error => console.error('Error cropping image', error)
+            );
+      }
+    }, (err) => { console.log(err); });
+  }
 
 
 

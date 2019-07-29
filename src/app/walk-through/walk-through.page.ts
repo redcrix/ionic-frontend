@@ -9,6 +9,7 @@ import { RestApiService } from '../api.service';
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { SocialUser } from "angular4-social-login";
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 
 
@@ -20,27 +21,37 @@ import { SocialUser } from "angular4-social-login";
 export class WalkThroughPage implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
-  
 
-  constructor(public api: RestApiService,
+
+  constructor(private fb: Facebook, public api: RestApiService,
     public loadingController: LoadingController,
- 
+
     public toastController: ToastController,
-    public alertController: AlertController, private router: Router ,private authService: AuthService ) {
+    public alertController: AlertController, private router: Router, private authService: AuthService) {
 
     if (localStorage.getItem('LoggedInUser_data') != null) {
-      this.router.navigate(['MyTab']);  
-  } if(localStorage.getItem('LoggedInUser_data') === null) {
+      this.router.navigate(['MyTab']);
+    } if (localStorage.getItem('LoggedInUser_data') === null) {
       console.log('done');
+    }
+
+    this.authService.authState.subscribe((user) => {
+
+      this.user = user;
+      localStorage.setItem('UserFb', JSON.stringify(this.user));
+      // console.log(JSON.parse(localStorage.getItem('UserFb'));
+
+      this.loggedIn = (user != null);
+    });
+
+
+
+    this.countdown();
+
   }
 
-
-  this.countdown();
-
-   }
-
-   countdown(){
-   let countDownDate = new Date("Jul 31, 2019 14:50:25").getTime();
+  countdown() {
+    let countDownDate = new Date("Jul 31, 2019 14:50:25").getTime();
 
     // Update the count down every 1 second
     let x = setInterval(function () {
@@ -73,35 +84,45 @@ export class WalkThroughPage implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
 
-      console.log('debug 1 =============='+JSON.stringify(user));
+      console.log('debug 1 ==============' + JSON.stringify(user));
       this.user = user;
       this.loggedIn = (user != null);
-      if(this.loggedIn==true)
-      this.router.navigate(['register']);
+      if (this.loggedIn == true)
+        this.router.navigate(['register']);
       else
-      this.router.navigate(['/']);
+        this.router.navigate(['/']);
     });
   }
 
-  continue_(){
+  continue_() {
+
+    alert('working');
     this.router.navigate(['LandingPage']);
   }
 
-  start(){
+  start() {
     this.router.navigate(['register']);
   }
 
-  login(){
+  login() {
     this.router.navigate(['login']);
   }
 
-  async socialFb(){
+  async socialFb() {
 
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
-  async socialGoogle(){
+  async socialGoogle() {
 
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  linkk() {
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+      .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', JSON.stringify(res))
+      .catch(e => console.log('Error logging into Facebook', e));
+
+    this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
   }
 
 }

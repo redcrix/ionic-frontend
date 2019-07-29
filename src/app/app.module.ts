@@ -21,17 +21,19 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 
 import { NativeGeocoder,NativeGeocoderOptions} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { FileTransfer} from '@ionic-native/file-transfer/ngx';
+import { ParticlesModule } from 'angular-particle';
 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("68331676966-rtfsc4e4v2llr1pgee0i0o69la1llg6j.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider("783579639968-n4onq72d8o3rlv35q4i8dg25igf0e9jc.apps.googleusercontent.com")
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("364152994258660")
+    provider: new FacebookLoginProvider("479469605950241")
   }
 ]);
 
@@ -46,6 +48,7 @@ export function provideConfig() {
   entryComponents: [],
   imports: [
     // MatStepperModule,
+    ParticlesModule,
     BrowserModule, 
     SocialLoginModule,
     // MatInputModule,
@@ -60,7 +63,10 @@ export function provideConfig() {
   providers: [
     InAppBrowser,
     NativeGeocoder,
+    ImagePicker,
     Geolocation,
+    Crop,
+    FileTransfer,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

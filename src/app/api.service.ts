@@ -8,7 +8,7 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
   
 };
-const apiUrl = "http://ubuntubackend.herokuapp.com/";
+const apiUrl = "https://kyc-app-v0.herokuapp.com/";
 // "https://redcart.herokuapp.com/api/";
 @Injectable({
   providedIn: 'root'

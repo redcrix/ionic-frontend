@@ -7,7 +7,8 @@
 
 
     <ion-title>
-      Logo
+        KYC form for
+        {{ user.name }}
     </ion-title>
 
 
@@ -19,12 +20,21 @@
 <ion-content padding>
 
   <button (click)="geoCoder()">geoo</button>
+  <button (click)="getUserLocation()">getUserLocation</button>
+
+  
+<div class="confirmBox" *ngIf="!kyc_form_show">
+
+<p class="kyc_done">
+
+  Kyc submitted succesfully. You will receive notification email as soon your application get approved.
+</p>
+
+</div>
+
 
   <div class="register-box" *ngIf="kyc_form_show">
-    <div class="icon">
-      KYC FORM for
-      {{ user.name }}
-    </div>
+
 
     <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
         {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
@@ -78,7 +88,7 @@
 
             <mat-form-field>
               <input matInput name="Last/Family Name" formControlName="lastname" class="redcart-input" type="text"
-                placeholder="Last/Family Name" [value]="user.lastName">
+                placeholder="Last/Family Name" >
 
               <p class="sub_text">Legal Name that is on your photo ID</p>
 
@@ -122,18 +132,7 @@
 
         </form>
 
-        <div class="TextAreaMain">
-
-          <textarea #myInput id="Message" rows="1" maxLength="500" placeholder="Complete Address Here"
-            (keyup)="resize()" [(ngModel)]="Addresso"></textarea>
-          <p class="sub_text_add">
-            Address 1,
-            Address 2,
-            City/Town,
-            State/Region,
-            Zip/Postal Code,
-            Country</p>
-        </div>
+   
 
 
         <div class="stepperFooter">
@@ -150,6 +149,19 @@
 
 
         <ng-template matStepLabel>Personal Identification Details</ng-template>
+
+        <div class="TextAreaMain">
+
+          <textarea #myInput id="Message" rows="10" maxLength="500" placeholder=" Enter Address Line,
+          City/Town,
+          State/Region,
+          Zip/Postal Code,
+          Country"
+            (keyup)="resize()" [(ngModel)]="Addresso"></textarea>
+       
+        </div>
+
+
         <form [formGroup]="secondFormGroup">
 
 
@@ -182,18 +194,14 @@
               <ion-button class="IdUpload-btn">Upload</ion-button>
             </ion-col>
 
-            <ion-col class="id_up-col">
-              <p class="timer_text">Selfie with Photo ID</p>
-              <img src="../../assets/photo_upload.png" class="photo">
-              <ion-button class="IdUpload-btn">Upload</ion-button>
-            </ion-col>
+       
           </ion-row>
 
 
           <h3 class="upload">Address Validation</h3>
 
           <ion-row class="Count_row_address">
-            <ion-col class="add_up-col">
+            <!-- <ion-col class="add_up-col">
               <p class="timer_text">Bank Statement</p>
               <img src="../../assets/photo_upload.png" class="photo">
               <ion-button class="IdUpload-btn">Upload</ion-button>
@@ -203,13 +211,20 @@
               <p class="timer_text">Utility/Medical Bill</p>
               <img src="../../assets/photo_upload.png" class="photo">
               <ion-button class="IdUpload-btn">Upload</ion-button>
-            </ion-col>
+            </ion-col> -->
 
-            <!-- <ion-col  class="id_up-col" >
-                          <p class="timer_text">Selfie with Photo ID</p>
-                          <img src="../../assets/photo_upload.png" class="photo">
-                          <ion-button  class="IdUpload-btn">Upload</ion-button>
-                        </ion-col> -->
+            <ion-card>
+                <img *ngIf="!fileUrl" src="../../assets/photo_upload.png"/>
+                <img *ngIf="fileUrl" src="{{fileUrl}}"/>
+                <ion-card-content>
+                  <ion-button color="medium" size="large" (click)="cropUpload()">
+                    <ion-icon slot="icon-only" name="camera"></ion-icon>
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
+
+
+
           </ion-row>
 
 
