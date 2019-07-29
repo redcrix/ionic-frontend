@@ -25,3 +25,68 @@ ion-row.login-intro.ios.hydrated {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+img.icon_ {
+    height: 60px;
+    margin: 10px;
+}
+
+.footer {
+    text-align: center;
+}
+
+.login-box {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: -webkit-match-parent;
+    padding: 30px;
+}
+
+ion-col.md.hydrated {
+    padding: 30px;
+    text-align: center;
+}
+
+ion-button.login-btn.md.button.button-block.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+    --background: black;
+}
+
+ion-button.signup-btn.md.button.button-block.button-solid.ion-activatable.ion-focusable.hydrated {
+    --background: tomato;
+    margin-top: 18px;
+    font-family: Gotham;
+    font-weight: bold;
+    --background-focused: white;
+    --background-hover: white;
+    --color-hover: black;
+}
+
+.login-btn {
+    --background: rgba(0,0,0,.87);
+    --background-focused: white;
+    --background-hover: white;
+    --color-hover: black;
+}
+
+.sign-up-box {
+    padding: 30px;
+    margin-top: 50px;
+    background: lightgray;
+    font-family: Gotham;
+}
+
+input.native-input.sc-ion-input-md {
+    font-family: Gotham;
+    margin: 5px;
+    border: 1px solid gray;
+}
+
+button.CodeSign {
+    background: #7eaef1;
+    color: white;
+    font-weight: bold;
+    padding: 13px;
+    float: right;
+    margin-right: 5px;
+}

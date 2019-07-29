@@ -96,12 +96,11 @@
 
             <div class="item_inner">
 
-              <input matInput *ngIf="!user.lastName" name="First Name" formControlName="firstname" class="redcart-input"
-                type="text" placeholder="First/Family Name *">
+
 
               <ion-datetime class="redcart-input" formControlName="dob" displayFormat="MM DD YY"
-                placeholder="Date of Birth" [value]="user.lastName"></ion-datetime>
-
+                placeholder="Date of Birth"></ion-datetime>
+                <!-- [value]="user.lastName" -->
               <p class="sub_text">This will be verified with what is on your photo ID</p>
             </div>
 

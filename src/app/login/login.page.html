@@ -6,10 +6,12 @@
 
 <ion-content>
 
+  <div class="login-box" *ngIf="login">
+
     <ion-row class="login-intro">
         <ion-col  >
-       
-          <img src="../../assets/start.png" alt="start_application" class="start-png">
+       <p>Ubuntu Kyc Login</p>
+          <!-- <img src="../../assets/start.png" alt="start_application" class="start-png"> -->
         </ion-col>
 
     </ion-row>
@@ -28,23 +30,68 @@
         </form>
     </div>
 
-    <ion-button expand="full"   [disabled]="!loginForm.valid"  class="login-btn" (click)="Login()"><ion-icon name="done-all"></ion-icon> LOGIN</ion-button >
-  
-
-
-    <ion-row class="customRowDesign">
-        <ion-col (click)="start()" >
-            <p class="sub_title">
-             Start with your application.
-              </p>
-          <img src="../../assets/start.png" alt="start_application" class="start-png">
-        </ion-col>
-
-    </ion-row>
-
-
    
-<button (click)="doFbLogin()">fb</button>
+      <ion-button expand="block" [disabled]="!loginForm.valid"  class="login-btn" (click)="Login()">Login</ion-button>
+      <ion-button expand="block"   class="signup-btn" (click)="signupInput()">Signup with email</ion-button>
+
+    </div>
+
+
+    <div class="login-box" *ngIf="signUp">
+
+        <ion-row class="login-intro">
+            <ion-col  >
+           <p>Ubuntu Kyc New Signup</p>
+              <!-- <img src="../../assets/start.png" alt="start_application" class="start-png"> -->
+            </ion-col>
+    
+        </ion-row>
+
+
+        <div class="inputBox">
+            <form [formGroup]="SignupForm" >
+          <div class="input-sign">
+              <ion-input class="login-input" formControlName="email"  type="text" placeholder="Email"></ion-input>
+            </div>
+
+            <button class="CodeSign" (click)="verify()">Send code to this email.</button>
+    
+            <div class="input-sign">
+                <ion-input class="login-input" formControlName="pass"  type="text" placeholder="Password"></ion-input>
+              </div>
+
+              <div class="input-sign">
+                  <ion-input class="login-input"  formControlName="code"  type="text" placeholder="Code"></ion-input>
+                </div>
+    
+            </form>
+
+     
+        </div>
+    
+       
+          <ion-button expand="block" [disabled]="!SignupForm.valid"  class="login-btn" (click)="Login()">Signup</ion-button>
+    
+          <ion-button expand="block"  class="login-btn" (click)="LoginBac()">Login</ion-button>
+    
+
+
+    </div>
+     
 
 
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar class="footer">
+ 
+   <img src="../../assets/fb_icon.png" class="icon_" (click)="socialFb()" alt="social_media_icon">
+    <img src="../../assets/google_icon.png" class="icon_" (click)="socialGoogle()"  alt="social_media_icon">
+ 
+    <img src="../../assets/linkedin_icon.png" class="icon_" alt="social_media_icon" (click)="linkk()">
+ 
+    <img src="../../assets/twitter_icon.png" class="icon_" alt="social_media_icon">
+ 
+  </ion-toolbar>
+</ion-footer>

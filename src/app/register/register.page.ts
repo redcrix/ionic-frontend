@@ -30,9 +30,9 @@ declare var google
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  private user: SocialUser;
+  // private user: SocialUser;
   private loggedIn: boolean;
-
+user;
 
   userLocation;
   userCity;
@@ -81,25 +81,25 @@ export class RegisterPage implements OnInit {
       // this.initializeApp();
 
 
-    if (localStorage.getItem('LoggedInUser_data') != null) {
-      this.router.navigate(['MyTab']);
-    } if (localStorage.getItem('LoggedInUser_data') === null) {
-      console.log('done');
-    }
-   
-
     this.user = JSON.parse(localStorage.getItem('UserFb'));
+
+    // Change with Native Storage for iOs.
+
+  
 console.log(this.user);
+
+console.log(this.user.id);
+
     this.registerForm = this.formBuilder.group({
-      'userid': [JSON.parse(localStorage.getItem('UserFb')).id],
-      'accesToken': [JSON.parse(localStorage.getItem('UserFb')).authToken],
-      'provider': [JSON.parse(localStorage.getItem('UserFb')).provider],
-      'firstname': [JSON.parse(localStorage.getItem('UserFb')).firstName, Validators.required],
-      'middlename': [null, Validators],
-      'lastname': [JSON.parse(localStorage.getItem('UserFb')).lastName, Validators.required],
-      'dob': [Validators.required],
+      'userid':  [this.user.id, Validators.required],
+      'accesToken': [this.user.authToken, Validators.required],
+      'provider': [this.user.authToken, Validators.required],
+      'firstname': [this.user.firstName, Validators.required],
+      'middlename': ['', Validators],
+      'lastname': [this.user.lastName, Validators.required],
+      'dob': ['', Validators.required],
       //  'address' : [this.Addresso, Validators.required],
-      'nationality': [null, Validators.required],
+      'nationality': ['', Validators.required],
 
       //'email' : [null, Validators.required],
       //'password' : [null, [Validators.required, Validators.minLength(2)]],
@@ -125,12 +125,12 @@ console.log(this.user);
 
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
+    // this.authService.authState.subscribe((user) => {
 
-      this.user = user;
+    //   this.user = user;
 
-      this.loggedIn = (user != null);
-    });
+    //   this.loggedIn = (user != null);
+    // });
 
   }
 

@@ -1,10 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastController, AlertController, } from '@ionic/angular';
+
+import { Router } from '@angular/router';
+
+
 import { LoadingController } from '@ionic/angular';
 import { RestApiService } from '../api.service';
-import { Router } from '@angular/router';
-import { ToastController, AlertController, } from '@ionic/angular';
+
+import { AuthService } from "angular4-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
+import { SocialUser } from "angular4-social-login";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -12,20 +23,33 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  FB_APP_ID: number = 330683611150903;
+
   submitted = false;
   loginForm: FormGroup;
-  loggedIn = false;
+  SignupForm : FormGroup;
+  private user: SocialUser;
+  private loggedIn: boolean;
+  signUp  = false;
+  login = true;
 
   constructor(private fb: Facebook,public api: RestApiService,
     public loadingController: LoadingController, private formBuilder: FormBuilder,
-    private router: Router,
+    
+  
+
     public toastController: ToastController,
-    public alertController: AlertController,) { 
+    public alertController: AlertController, private router: Router, private authService: AuthService) { 
 
     this.loginForm = this.formBuilder.group({
       email : ['', [Validators.required, Validators.email]],
       pass : ['', [Validators.required, Validators.minLength(2)]],
+    });
+
+    this.SignupForm = this.formBuilder.group({
+      email : ['', [Validators.required, Validators.email]],
+      pass : ['', [Validators.required, Validators.minLength(2)]],
+      code : ['', [Validators.required, Validators.minLength(2)]],
+     
     });
 
   }
@@ -34,54 +58,15 @@ export class LoginPage implements OnInit {
 
 
       if (localStorage.getItem('LoggedInUser_data') != null) {
-      this.router.navigate(['MyTab']);  
+      this.router.navigate(['LandingPage']);  
     } if(localStorage.getItem('LoggedInUser_data') === null) {
       console.log('done');
     }
 
+
+
   }
 
-  async doFbLogin(){
-		const loading = await this.loadingController.create({
-			message: 'Please wait...'
-		});
-		this.presentLoading(loading);
-		// let permissions = new Array<string>();
-
-		//the permissions your facebook app needs from the user
-    const permissions = ["public_profile", "email"];
-
-		this.fb.login(permissions)
-		.then(response =>{
-			let userId = response.authResponse.userID;
-
-			//Getting name and gender properties
-			this.fb.api("/me?fields=name,email", permissions)
-			.then(user =>{
-				user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-				//now we have the users info, let's save it in the NativeStorage
-				// this.nativeStorage.setItem('facebook_user',
-				// {
-				// 	name: user.name,
-				// 	email: user.email,
-				// 	picture: user.picture
-				// })
-				// .then(() =>{
-				// 	this.router.navigate(["/user"]);
-				// 	loading.dismiss();
-				// }, error =>{
-				// 	console.log(error);
-				// 	loading.dismiss();
-        // })
-        
-        console.log('USER DETAILS == '+user);
-			})
-		}, error =>{
-			console.log(error);
-			loading.dismiss();
-		});
-  }
-  
   async presentLoading(loading) {
 		return await loading.present();
 	}
@@ -114,10 +99,10 @@ export class LoginPage implements OnInit {
           this.loggedIn = true;
           localStorage.removeItem('LoggedInUser_data');
           localStorage.setItem('LoggedInUser_data', JSON.stringify(save_login_within_app));
-      
+       
           loading.dismiss();
   
-          this.router.navigate(['home']);
+          this.router.navigate(['LandingPage']);
          
         }
       }, (err) => {
@@ -126,9 +111,61 @@ export class LoginPage implements OnInit {
       });
   }
 
-  start(){
-    this.router.navigate(['register']);
+  // start(){
+  //   this.router.navigate(['register']);
+  // }
+
+
+  async socialFb() {
+
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+
+   this.authService.authState.subscribe((user) => {
+
+      console.log('debug 1 ==============' + JSON.stringify(user));
+      this.user = user;
+
+      localStorage.setItem('UserFb', JSON.stringify(this.user));
+      
+
+      this.loggedIn = (user != null);
+      if (this.loggedIn == true)
+        this.router.navigate(['LandingPage']);
+      else
+        this.router.navigate(['/']);
+    });
+
+
   }
+  async socialGoogle() {
+
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  linkk() {
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+    .then((res: FacebookLoginResponse) => console.log('DEBUG === 2 == response == ', JSON.stringify(res)))
+    .catch(e => console.log('DEBUG === 3 == error == ', JSON.stringify(e)));
+
+    this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+
+  }
+  signupInput(){
+    this.login = false;
+    this.signUp  = true;
+   
+  }
+
+  verify(){
+    console.log(this.SignupForm.value.email);
+  }
+
+  LoginBac(){
+    this.signUp  = false;
+    this.login = true;
+   
+  }
+ 
 
 
 }

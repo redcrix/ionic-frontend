@@ -20,9 +20,13 @@ export class Tab1Page {
 
 
   constructor(private router: Router, private iab: InAppBrowser) {
+
+    console.log(localStorage.getItem('UserFb'));
     this.countdown();
     // particlesJS.load('particles-js', 'particles.json', null);
     // this.particle();
+
+    
   }
 
   // particle() {

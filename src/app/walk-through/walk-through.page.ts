@@ -35,14 +35,14 @@ export class WalkThroughPage implements OnInit {
       console.log('done');
     }
 
-    this.authService.authState.subscribe((user) => {
+    // this.authService.authState.subscribe((user) => {
 
-      this.user = user;
-      localStorage.setItem('UserFb', JSON.stringify(this.user));
-      // console.log(JSON.parse(localStorage.getItem('UserFb'));
+    //   this.user = user;
+    //   localStorage.setItem('UserFb', JSON.stringify(this.user));
+    //   // console.log(JSON.parse(localStorage.getItem('UserFb'));
 
-      this.loggedIn = (user != null);
-    });
+    //   this.loggedIn = (user != null);
+    // });
 
 
 
@@ -82,47 +82,47 @@ export class WalkThroughPage implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
+    // this.authService.authState.subscribe((user) => {
 
-      console.log('debug 1 ==============' + JSON.stringify(user));
-      this.user = user;
-      this.loggedIn = (user != null);
-      if (this.loggedIn == true)
-        this.router.navigate(['register']);
-      else
-        this.router.navigate(['/']);
-    });
+    //   console.log('debug 1 ==============' + JSON.stringify(user));
+    //   this.user = user;
+    //   this.loggedIn = (user != null);
+    //   if (this.loggedIn == true)
+    //     this.router.navigate(['register']);
+    //   else
+    //     this.router.navigate(['/']);
+    // });
   }
 
   continue_() {
-
-    alert('working');
-    this.router.navigate(['LandingPage']);
-  }
-
-  start() {
-    this.router.navigate(['register']);
-  }
-
-  login() {
+  
     this.router.navigate(['login']);
   }
 
-  async socialFb() {
+  // start() {
+  //   this.router.navigate(['register']);
+  // }
 
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-  async socialGoogle() {
+  // login() {
+  //   this.router.navigate(['login']);
+  // }
 
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
+  // async socialFb() {
 
-  linkk() {
-    this.fb.login(['public_profile', 'user_friends', 'email'])
-      .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', JSON.stringify(res))
-      .catch(e => console.log('Error logging into Facebook', e));
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
+  // async socialGoogle() {
 
-    this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
-  }
+  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  // }
+
+  // linkk() {
+  //   this.fb.login(['public_profile', 'user_friends', 'email'])
+  //   .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', JSON.stringify(res)))
+  //   .catch(e => console.log('Error logging into Facebook', e));
+
+  //   this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+
+  // }
 
 }
