@@ -52,21 +52,40 @@ ion-button.login-btn.md.button.button-block.button-solid.button-disabled.ion-act
     --background: black;
 }
 
-ion-button.signup-btn.md.button.button-block.button-solid.ion-activatable.ion-focusable.hydrated {
-    --background: tomato;
-    margin-top: 18px;
-    font-family: Gotham;
-    font-weight: bold;
-    --background-focused: white;
-    --background-hover: white;
-    --color-hover: black;
+ion-button.signup-btn.md.button.button-block.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+    --background:#3880ff;
 }
 
+
+
 .login-btn {
-    --background: rgba(0,0,0,.87);
+  
+    --background: black;
     --background-focused: white;
     --background-hover: white;
     --color-hover: black;
+    margin: 10px;
+  
+    /* padding: 3px; */
+    font-family: Gotham;
+    font-weight: bold;
+}
+
+img.logo- {
+    height: 155px;
+}
+
+.signup-btn {
+  
+    --background: #3880ff;
+    --background-focused: white;
+    --background-hover: white;
+    --color-hover: #3880ff;
+    margin: 10px;
+ 
+    /* padding: 3px; */
+    font-family: Gotham;
+    font-weight: bold;
 }
 
 .sign-up-box {
@@ -90,3 +109,4 @@ button.CodeSign {
     float: right;
     margin-right: 5px;
 }
+

@@ -42,13 +42,13 @@ export class LoginPage implements OnInit {
 
     this.loginForm = this.formBuilder.group({
       email : ['', [Validators.required, Validators.email]],
-      pass : ['', [Validators.required, Validators.minLength(2)]],
+      password : ['', [Validators.required, Validators.minLength(2)]],
     });
 
     this.SignupForm = this.formBuilder.group({
       email : ['', [Validators.required, Validators.email]],
-      pass : ['', [Validators.required, Validators.minLength(2)]],
-      code : ['', [Validators.required, Validators.minLength(2)]],
+      password : ['', [Validators.required, Validators.minLength(2)]],
+      username : ['', [Validators.required, Validators.minLength(2)]],
      
     });
 
@@ -73,15 +73,26 @@ export class LoginPage implements OnInit {
 
 
   async Login(){
+
+    // this.router.navigate(['LandingPage']);
+    
     const loading = await this.loadingController.create();
     await loading.present();
 
-    await this.api.LoginApi(this.loginForm.value)
-    .subscribe(res => {
-      console.log(res);
-        console.log(res);
-        this.submitted = true;
+    let data = {
+      email : this.loginForm.value.email,
+      password : this.loginForm.value.password,
+    }
 
+    console.log(data);
+    
+    await this.api.LoginApi(data)
+    .subscribe(res => {
+      console.log('DEBUG === 1'+res);
+      console.log('DEBUG === 1'+JSON.stringify(res));
+        // console.log(res);
+        this.submitted = true;
+        loading.dismiss();
        
         let save_login_within_app = {
           name : JSON.stringify(res.name),
@@ -111,6 +122,62 @@ export class LoginPage implements OnInit {
       });
   }
 
+
+
+  async Register(){
+
+    // 
+    
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    let data = {
+      email : this.SignupForm.value.email,
+      password : this.SignupForm.value.password,
+      username :  this.SignupForm.value.username
+    }
+
+    console.log(data);
+
+    await this.api.RegByEmail(data)
+    .subscribe(res => {
+      console.log('DEBUG === 1'+res);
+      console.log('DEBUG === 1'+JSON.stringify(res));
+        // console.log(res);
+
+        this.submitted = true;
+        // this.router.navigate(['LandingPage']);
+
+       
+        loading.dismiss();
+       
+        let save_login_within_app = {
+          name : JSON.stringify(res.name),
+          id : JSON.stringify(res.id),
+          auth_token : JSON.stringify(res.auth_token),
+          type : JSON.stringify(res.type),
+          email : this.loginForm.value.email
+        }
+
+        if (res.status === 0){
+          loading.dismiss();
+        }
+  
+        else if(res.status === 1){
+          this.loggedIn = true;
+          localStorage.removeItem('LoggedInUser_data');
+          localStorage.setItem('LoggedInUser_data', JSON.stringify(save_login_within_app));
+       
+          loading.dismiss();
+  
+          this.router.navigate(['LandingPage']);
+         
+        }
+      }, (err) => {
+        console.log(err);
+        loading.dismiss();
+      });
+  }
   // start(){
   //   this.router.navigate(['register']);
   // }

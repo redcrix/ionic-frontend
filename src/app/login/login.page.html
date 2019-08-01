@@ -10,7 +10,9 @@
 
     <ion-row class="login-intro">
         <ion-col  >
-       <p>Ubuntu Kyc Login</p>
+       <p>
+         <img src="../../assets/logo-pn.png" class="logo-">
+       </p>
           <!-- <img src="../../assets/start.png" alt="start_application" class="start-png"> -->
         </ion-col>
 
@@ -24,7 +26,7 @@
         </div>
 
         <div class="input-sign">
-            <ion-input class="login-input" formControlName="pass"  type="text" placeholder="Password"></ion-input>
+            <ion-input class="login-input" formControlName="password"  type="text" placeholder="Password"></ion-input>
           </div>
 
         </form>
@@ -41,7 +43,11 @@
 
         <ion-row class="login-intro">
             <ion-col  >
-           <p>Ubuntu Kyc New Signup</p>
+           <p>New Signup by Email
+                  
+         <!-- <img src="../../assets/logo-pn.png" class="logo-"> -->
+       
+           </p>
               <!-- <img src="../../assets/start.png" alt="start_application" class="start-png"> -->
             </ion-col>
     
@@ -57,11 +63,11 @@
             <button class="CodeSign" (click)="verify()">Send code to this email.</button>
     
             <div class="input-sign">
-                <ion-input class="login-input" formControlName="pass"  type="text" placeholder="Password"></ion-input>
+                <ion-input class="login-input" formControlName="password"  type="text" placeholder="Password"></ion-input>
               </div>
 
               <div class="input-sign">
-                  <ion-input class="login-input"  formControlName="code"  type="text" placeholder="Code"></ion-input>
+                  <ion-input class="login-input"  formControlName="username"  type="text" placeholder="Code"></ion-input>
                 </div>
     
             </form>
@@ -70,7 +76,7 @@
         </div>
     
        
-          <ion-button expand="block" [disabled]="!SignupForm.valid"  class="login-btn" (click)="Login()">Signup</ion-button>
+          <ion-button expand="block" [disabled]="!SignupForm.valid"  class="signup-btn" (click)="Register()">Signup</ion-button>
     
           <ion-button expand="block"  class="login-btn" (click)="LoginBac()">Login</ion-button>
     

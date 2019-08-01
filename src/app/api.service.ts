@@ -8,7 +8,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
   
 };
-const apiUrl = "https://kyc-app-v0.herokuapp.com/";
+
+const apiUrl = "https://ubuntu-backend.herokuapp.com/";
 // "https://redcart.herokuapp.com/api/";
 @Injectable({
   providedIn: 'root'
@@ -38,37 +39,59 @@ export class RestApiService {
     return body || { };
   }
 
-  socialLogin(data): Observable<any> {
-    const url = `${apiUrl}socialLogin`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  // socialLogin(data): Observable<any> {
+  //   const url = `${apiUrl}socialLogin`;
+  //   return this.http.post(url, data, httpOptions)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
   
   LoginApi(data): Observable<any> {
-    const url = `${apiUrl}login`;
+    const url = `${apiUrl}api/login`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getInfo(id: string): Observable<any> {
-    const url = `${apiUrl}getInfo/${id}`;
+  RegByEmail(data): Observable<any> {
+    const url = `${apiUrl}api/userdata`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // getInfo(id: string): Observable<any> {
+  //   const url = `${apiUrl}getInfo/${id}`;
+  //   return this.http.get(url, httpOptions).pipe(
+  //     map(this.extractData),
+  //     catchError(this.handleError));
+  // }
+
+  getUserSettings(): Observable<any> {
+    const url = `${apiUrl}api/user/settings`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
   RegisterApi(data): Observable<any> {
-    const url = `${apiUrl}user`;
+    const url = `${apiUrl}api/userdata`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
+  getAllUsers(data): Observable<any> {
+    const url = `${apiUrl}api/allusersdata`;
+    return this.http.get(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   SocialApi(): Observable<any> {
 
     let data = {

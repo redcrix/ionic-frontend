@@ -7,8 +7,8 @@
 
 
     <ion-title>
-        KYC form for
-        {{ user.name }}
+        KYC form 
+        <!-- {{ user.name }} -->
     </ion-title>
 
 
@@ -19,10 +19,10 @@
 
 <ion-content padding>
 
-  <button (click)="geoCoder()">geoo</button>
+  <!-- <button (click)="geoCoder()">geoo</button>
   <button (click)="getUserLocation()">getUserLocation</button>
 
-  
+   -->
 <div class="confirmBox" *ngIf="!kyc_form_show">
 
 <p class="kyc_done">
@@ -73,7 +73,7 @@
               
   
                 <input matInput  name="First Name" formControlName="firstname" class="redcart-input"
-                  type="text" placeholder="First/Family Name *" [value]="user.firstName">
+                  type="text" placeholder="First/Family Name *">
   
               </mat-form-field>
 
@@ -148,20 +148,45 @@
 
 
         <ng-template matStepLabel>Personal Identification Details</ng-template>
+        <form [formGroup]="secondFormGroup">
 
-        <div class="TextAreaMain">
+        <mat-form-field>
+          <input matInput name="middle name" formControlName="add1" class="redcart-input" type="text"
+            placeholder="Address Line 1">
+
+          <p class="sub_text">Address Line 1</p>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput name="middle name" formControlName="add2" class="redcart-input" type="text"
+            placeholder="State">
+
+          <p class="sub_text">State</p>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput name="middle name" formControlName="add3" class="redcart-input" type="text"
+            placeholder="Pincode">
+
+          <p class="sub_text">Pincode</p>
+
+        </mat-form-field>
+        <!-- <div class="TextAreaMain">
 
           <textarea #myInput id="Message" rows="10" maxLength="500" placeholder=" Enter Address Line,
           City/Town,
           State/Region,
           Zip/Postal Code,
           Country"
-            (keyup)="resize()" [(ngModel)]="Addresso"></textarea>
+            (keyup)="resize()" ></textarea>
        
-        </div>
+        </div> -->
 
+        <h3 class="upload">ID Upload</h3>
 
-        <form [formGroup]="secondFormGroup">
+  
 
 
 
@@ -178,7 +203,7 @@
 
 
           <!-- ID upload here -->
-          <h3 class="upload">ID Upload</h3>
+       
 
           <ion-row class="Count_row_ID">
             <ion-col class="id_up-col">

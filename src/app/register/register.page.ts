@@ -81,22 +81,22 @@ user;
       // this.initializeApp();
 
 
-    this.user = JSON.parse(localStorage.getItem('UserFb'));
+    // this.user = JSON.parse(localStorage.getItem('UserFb'));
 
     // Change with Native Storage for iOs.
 
   
-console.log(this.user);
+// console.log(this.user);
 
-console.log(this.user.id);
+// console.log(this.user.id);
 
     this.registerForm = this.formBuilder.group({
-      'userid':  [this.user.id, Validators.required],
-      'accesToken': [this.user.authToken, Validators.required],
-      'provider': [this.user.authToken, Validators.required],
-      'firstname': [this.user.firstName, Validators.required],
+      'userid':  ['', Validators.required],
+      'accesToken': ['', Validators.required],
+      'provider': ['', Validators.required],
+      'firstname': ['', Validators.required],
       'middlename': ['', Validators],
-      'lastname': [this.user.lastName, Validators.required],
+      'lastname': ['', Validators.required],
       'dob': ['', Validators.required],
       //  'address' : [this.Addresso, Validators.required],
       'nationality': ['', Validators.required],
@@ -111,6 +111,9 @@ console.log(this.user.id);
     this.secondFormGroup = this.formBuilder.group({
 
       'idtype': [null, Validators.required],
+      'add1': [null, Validators.required],
+      'add2': [null, Validators.required],
+      'add3': [null, Validators.required],
     });
   }
 
@@ -149,8 +152,9 @@ console.log(this.user.id);
     console.log(this.registerForm.value.userid);
     await loading.present();
     let data = {
+      usertype : '1',
       userid: this.registerForm.value.userid,
-      accesToken: this.registerForm.value.accesToken,
+      accesToken: 'ampp',
       provider: this.registerForm.value.provider,
       firstname: this.registerForm.value.firstname,
       middlename: this.registerForm.value.middlename,

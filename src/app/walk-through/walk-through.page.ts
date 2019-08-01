@@ -21,6 +21,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 export class WalkThroughPage implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
+  dateCapture;
 
 
   constructor(private fb: Facebook, public api: RestApiService,
@@ -45,13 +46,45 @@ export class WalkThroughPage implements OnInit {
     // });
 
 
-
+this.getSettingsInfo();
     this.countdown();
 
   }
 
+
+  async getSettingsInfo() {
+
+    
+    await this.api.getUserSettings()
+      .subscribe(res => {
+        console.log('DEBIG == SETTINGS' + JSON.stringify(res));
+
+        this.dateCapture = JSON.stringify(res[0].date);
+       console.log('DEBIG == SETTINGS' + this.dateCapture);
+
+        if (res.status === 0) {
+   
+          console.log('status = 000');
+        }
+
+        else if (res.status === 1) {
+          console.log('status = 1');
+       }
+
+      }, (err) => {
+
+        console.log(err);
+
+
+
+      });
+
+
+
+  }
+
   countdown() {
-    let countDownDate = new Date("Jul 31, 2019 14:50:25").getTime();
+    let countDownDate = new Date("Aug 2, 2019 14:50:25").getTime();
 
     // Update the count down every 1 second
     let x = setInterval(function () {
